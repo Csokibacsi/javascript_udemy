@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+       
+    </style>
+
+
+</head>
+<body>
+
+   <p id="fileInfo"></p>
+   
+   
+
+    <script>
+        //csak webserveren működik!!! pl. live-server, xampp stb
+
+        /*$.get("info.txt", function(data) { //kiiratjuk az info.txt tartalmát
+            alert(data);
+        });*/
+
+        $.ajax("info.txt").done(function(data) {
+            //alert(data);
+            $('#fileInfo').html(data);
+        }).fail(function(){ //ha hiba van, nincs netkapcsolat stb.
+            alert("Could not get data");
+        });
+
+
+    
+
+    </script>
+</body>
+</html>
