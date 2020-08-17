@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+
+<style>
+#makeMeDraggable { width: 300px; height: 300px; background: red; }
+/*#draggableHelper { width: 300px; height: 300px; background: yellow; } /*a helpernek a css-e*/
+#makeMeDraggable.ui-draggable-dragging { background: green; }
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+$( init ); //lefuttatjuk a function-t
+
+function init() {
+ // $('#makeMeDraggable').draggable();// - alapkód, ehhez adunk még paramltereket
+  $('#makeMeDraggable').draggable( {
+    //containment: '#content', //nem mehet ki a #content div-bõl
+	containment: 'document',
+    cursor: 'move',
+    //snap: '#content'
+	//helper: myHelper, //egy helper mozog az eredeti alakzat helyett (pl windowsban ikon mozgatása közben látjuk a képét)
+	stop: handleDragStop //a végsõ helyen megpihen az elem
+  } );
+}
+
+function myHelper( event ) { //a helper a box megjelenítése mozgatás közben
+  return '<div id="draggableHelper">I am a helper - drag me!</div>';
+}
+
+function handleDragStop(event, ui) {
+	var offsetXPos = parseInt(ui.offset.left); //int-té alakítjuk az offset x értéket
+	var offsetYPos = parseInt( ui.offset.top );
+	alert( "Drag stopped!nnOffset: (" + offsetXPos + ", " + offsetYPos + ")n");
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="content" style="height: 400px;">
+  <div id="makeMeDraggable"> </div>
+</div>
+
+</body>
+</html>

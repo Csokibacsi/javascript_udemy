@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays</title>
+</head>
+<body>
+   
+    <h3>Magic Word</h3>
+    <p><input type="text" id="magicWord"></p>
+    <p><button id="checkMagicWord">Enter</button></p>
+
+    <script type="text/javascript">
+    
+        let myArray = new Array();
+        myArray[0] = "pizza";
+        var tweets = ["Hello", "Goodbye"];
+        tweets.push("See ya");
+        tweets.splice(0,3);//mindegyik elemét törlöm, mert 3-at veszek ki a 0-ás poziból
+        tweets.splice(0,1,"Hi","Ahoy"); //
+
+        //if
+        document.querySelector("#checkMagicWord").onclick = function(){
+            //alert("hi");
+            let magicWordEntered = document.querySelector("#magicWord").value;
+            //alert(magicWordEntered);
+            var magicWord = "hókuszpókusz";
+            magicWordEntered == magicWord ? alert("Eltaláltad") : alert("Nem talált");
+            /*if(magicWordEntered == magicWord){
+                alert("Eltaláltad!");
+            } else {
+                alert("Nem talált!");
+            }*/
+        }
+
+
+
+        
+    
+    </script>
+</body>
+</html>

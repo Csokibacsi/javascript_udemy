@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction</title>
+    
+   
+<style>
+
+body{
+    font-family:sans-serif;
+}
+
+#shape{
+    width:200px;
+    height:200px;
+    /*background: red;*/
+    display:none;
+    position:relative;
+    
+}
+</style>
+   
+</head>
+
+
+<body>
+
+    <h3>Test your reaction time!</h3>
+    <p>Click on boxes or circles as quick as you can</p>
+
+    <p>Your time: <b><span id="timeTaken"></span></b></p>
+    <div id="shape"></div>
+
+    <script>
+
+        var start = new Date().getTime();
+
+        function getRandomColor(){ //hexás színkód generátor
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i=0; i<6; i++) {
+                color += letters[Math.floor(Math.random()*16)];
+            } 
+            return color;
+        }
+
+        function makeShapeAppear() { //visszahozza az alakzatot
+            var top = Math.random()*400; //max 400px
+            var left = Math.random()*400;
+            var width = Math.random()*200+100; //+100 azért kell, hogy ha 1px-re adná ki, akkor is minimum 101px legyen
+           
+           if(Math.random()>0.5){ //az esetek felében legyen kör
+            document.querySelector("#shape").style.borderRadius = "50%";
+           } else {
+            document.querySelector("#shape").style.borderRadius = "0%";
+           }
+
+            document.querySelector("#shape").style.backgroundColor =  getRandomColor();
+            document.querySelector("#shape").style.top = top + "px";
+            document.querySelector("#shape").style.left = left + "px";
+            document.querySelector("#shape").style.width = width + "px";
+            document.querySelector("#shape").style.height = width + "px";//hogy ne legen eldeformálva, ezért a width-hez adjuk a height-ot, hogy ugyanaz a síkidom maradjon
+            document.querySelector("#shape").style.display ="block";
+            start = new Date().getTime();
+        }
+
+        function appearAfterDelay(){
+            setTimeout(makeShapeAppear, Math.random()*2000);
+        }
+        appearAfterDelay(); //meghívjuk
+
+        document.querySelector("#shape").onclick = function(){
+            this.style.display = "none";
+            var end = new Date().getTime();
+            //var timeTaken = end-start; //milliecundumban
+            var timeTaken = (end-start)/1000; //másodpercben
+            document.querySelector("#timeTaken").innerHTML = timeTaken + " s";
+            //makeShapeAppear(); //ha a user klikkel, akkor ez a function is lefut
+            appearAfterDelay(); //klikk után fusson
+      
+        }
+    </script>
+
+</body>
+</html>

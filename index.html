@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript alapok</title>
+</head>
+<body>
+    <button id="changeText">Change text</button>
+    <p id="welcome">Helló, Világ!</p>
+   <!-- <button onclick="alert('Hi!');" type="button">Klikk</button>-->
+<br>
+    <button id="changeText2">Change Text 2</button>
+   <p id="secondText">Javascript is ...</p>
+<br>
+    <button id="appendButton">Append Text</button>
+
+
+<br>
+    <p id="moreText">This is some text</p>
+    <button id="styleText">Style Text</button>
+
+
+    <script>
+        //alert("Helló, világ");
+        //document.getElementById("welcome").innerHTML = "Helló, Zoli!";
+
+        document.getElementById("changeText").onclick = function(){
+            document.getElementById("welcome").innerHTML = "Helló, Zoli!";
+        }
+
+        document.getElementById("changeText2").onclick = function(){
+            document.getElementById("secondText").innerHTML = "fun!";
+        }
+
+        document.getElementById("appendButton").onclick = function(){
+            document.getElementById("secondText").innerHTML = "I think " + document.getElementById("secondText").innerHTML + " awesome!";
+           
+        }
+        document.getElementById("styleText").onclick = function(){
+           document.getElementById("moreText").style.color = "red";
+           document.getElementById("moreText").style.fontSize = "24px";
+           //document.getElementById("moreText").style.display = "none";
+           
+        }
+
+
+    </script>
+</body>
+</html>

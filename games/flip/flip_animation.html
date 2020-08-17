@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<title>Flip pure JQuery</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+
+<style type="text/css">
+      .card {
+        width: 500px;
+        height: 200px;
+        margin: 20px;
+      }
+      .front, .back, .other-front, .other-back {
+        border: 2px gray solid;
+        padding: 10px;
+      }
+      .front, .other-front {
+        background-color: #000075;
+        color: #fff;
+      }
+      .back, .other-back {
+        background-color: #B9B9FF;
+      }
+</style>
+
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+<script src="flip.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+</head>
+<body>
+<div id="card-flip-animation" class="card">
+      <div class="other-front">
+          Front: The front content will display first. Place front content here. The front content will display first. Place front content here. The front content will display first. Place front content here. The front content will display first. Place front content here.
+      </div>
+      <div class="other-back">
+          Back:  The back content will display as you click the mouse in this card area.  The back content will display as you click the mouse in this card area. The back content will display as you click the mouse in this card area.
+      </div>
+    </div>
+
+
+	
+<script>
+$(function(){
+      $("#card-flip-animation").flip({
+        axis: "y", // y or x
+        reverse: false, // true and false
+        trigger: "click", // click or hover
+        speed: '400',
+        front: $('.other-front'),
+        back: $('.other-back'),
+        autoSize: false
+      });
+ 
+    });
+
+
+</script>
+
+</body>
+</html>

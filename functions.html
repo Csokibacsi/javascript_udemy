@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+</head>
+<body>
+    <p>How many fingers, am I holding?</p>
+
+    <p><select id="myNum">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+    </select>
+
+    <button id="guess">Guess</button>
+
+    <script>
+       
+       function doGuess(correct){
+           var guess = Math.floor((Math.random()*6));
+           if(guess == correct){
+               return true;
+           } else {
+                return false;
+           }
+       }
+
+        //Guesses:
+        document.querySelector("#guess").onclick = function () {
+            var myNum = document.querySelector("#myNum").value;
+            var gotIt = false;
+            var numOfGuess = 1;
+            while(gotIt == false){
+                if(doGuess(myNum) == true){
+                    gotIt = true;
+                    alert("Got it! It was " + myNum + ". It took "+ numOfGuess + " guesses.");
+                } else {
+                    numOfGuess++;
+                }
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>

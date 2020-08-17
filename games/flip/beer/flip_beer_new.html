@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<title>Flip Beer New</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link rel="stylesheet" type="text/css" href="style.css"/>
+
+
+<script type="text/javascript" src="../../jquery/jquery.js"></script>
+<script type="text/javascript" src="../../jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="functions.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+</head>
+
+<body>
+<!--
+<iframe src="bavarian.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+<audio id="player" autoplay loop>
+    <source src="bavarian.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="myAudio" autoplay>
+  <source src="bavarian.mp3" type="audio/mpeg">
+</audio>
+<p id="demo"></p>
+<div class="createdby">Created by: Csoki</div>-->
+<!--<p>Show page <span onclick="show('Page1');">1</span>, <span onclick="show('Page2');">2</span>.
+</p>-->
+
+<div id="Page1" class="page" style="">
+		<div class="cim"><p>Sörlogók</p></div>
+		<div class="kezdes">
+		
+		<p><span onclick="show('Page2'); goTimer();" class="blink">Start</span></p>
+		</div>
+	</div>
+</div>
+
+<!--
+<div id="PageX" class="page" style="display:none">
+		<div class="cim"><p>Nehézség</p></div>
+		<div class="valaszt">
+		
+		<p style="width:320px;height: 125px;background:#111; color:white; padding:5px;"><span onclick=" normal(); show('Page2'); goTimer();" >Normál</span></p>
+		<p style="width:320px; height: 125px; background:#111; color:white; padding:5px;"><span onclick="halado(); show('Page2'); goTimer();  " >Haladó</span></p>
+		</div>
+	</div>
+</div>-->
+
+
+<div id="Page2" class="page" style="display:none">
+   
+   <div class="csik"><p class="blink">Párosítsd a sörmárkákat!</p></div>
+	<div class="wrapper"> 
+	
+	</div>
+	<div class="stopper"><span id="time">00:00</span> </div>
+
+</div>
+
+<div id="Page3" class="page" style="display:none">
+	<div class="cimend">
+		<p id="score">Eredményed: 0 mp</p>
+	</div>
+	
+	<div class="kezdes">
+		<p><span onclick="reloadCards()" class="antiblink">Vissza</span></p>
+	</div>
+  
+</div>
+
+
+
+<script>
+
+function sounds(){
+var x = document.getElementById("myAudio").autoplay;
+  document.getElementById("demo").innerHTML = x;
+}
+
+
+
+var nehez=0;
+var scores ='';	
+var clicked = []; 
+var paired = []; //ha megvannak a párok
+var last = 0;
+var lastBut = 0;
+var clickDisabled = false;
+
+
+
+cardClick();
+
+//cardClick();
+//cardClickHard();
+      
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+        #circle{
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            background:green;
+            margin:5px;
+            float:left;
+        }
+
+        .square{
+            width:100px;
+            height:100px;
+            background:red;
+            margin:5px;
+            float:left;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <p>This is some text</p>
+
+    <div id="circle"></div>
+    <div class="square" id="square1"></div>
+    <div class="square" id="square2"></div>
+    
+
+    <iframe src="http://codestars.com"></iframe>
+
+    <script>
+        //teszteljük, hogy műxik-e a jquery
+        /*if(typeof jQuery == "undefined"){
+            alert("jQuery not installed");
+        } else {
+            alert("jQuery is installed correctly")
+        }*/
+
+        $("#circle").click(function(){
+            //alert("Circle was clicked!")
+            
+            $("p").html("Green circle clicked"); //document.innerHTML
+            //alert($("p").html()); //így a p tagben levő szöveg ugrik fel
+        });
+        $(".square").hover(function(){
+            //alert("Square was clicked!")
+           // $("p").html("Red square hovered");
+           $("iframe").attr("src", "http://csokona.hu"); //hoverre az src attibútum változik
+        });
+
+
+
+    </script>
+</body>
+</html>

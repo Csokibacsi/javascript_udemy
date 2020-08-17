@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+<head>
+<title>Sakktábla Király</title>
+<style>
+	
+	body{
+		width:100%;
+		height:100%;
+		margin:auto;
+	}
+	
+	#div1{
+		margin:30px auto;
+		font-size:1.25em;
+		width:900px;
+	}
+	
+	#babu{
+		width:100px;
+		height:100px;
+		background-image:url("kiraly.png");
+		background-size: cover;
+		position:absolute;
+		left:10px;
+		top:10px;
+		/*border:1px dotted red;*/
+	}
+	#babu:hover{
+		cursor:pointer;
+	}
+	
+	table{
+		border-collapse:collapse;
+		border:1px solid #444;
+	}
+	
+	td {
+		border:1px solid #444;
+		width:100px;
+		height:100px;
+		text-align:center;
+	}
+	
+	.fekete{
+		background-color:#999;
+	}
+	
+	
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+</script>
+
+</head>
+<body>
+<div id="babu"></div>
+<div id="div1"></div>
+
+
+<script>
+var totalRows = 8;
+var cellsInRow = 8;
+
+var pozicio = [];
+var oszlopok = ["A","B","C","D","E","F","G","H"]; 
+
+
+    function drawTable() {
+        
+        var div1 = document.getElementById('div1'); // get the reference for the body
+        var tbl = document.createElement("table");  // creates a <table> element
+		
+		//var oszlopok = ["A","B","C","D","E","F","G","H"]; 
+		
+        // creating rows
+        for (var r = totalRows-1; r >= 0; r--) {
+            var row = document.createElement("tr");
+			//row.id = sorok[r];
+			if(r%2 == 0){
+				// create cells in row
+				for (var c = 0; c < cellsInRow; c++) {
+                var cell = document.createElement("td");
+				cell.id = oszlopok[c] + (r+1); //azért c+1, mert 0-ról indul a ciklus, de amezőt nem 0-nak nevezem
+								
+				if(c%2 == 1){
+					cell.className="fekete";
+				}
+				
+				row.appendChild(cell);
+				}   
+			} else {
+				// create cells in row
+				for (var c = 0; c < cellsInRow; c++) {
+                var cell = document.createElement("td");
+				cell.id = oszlopok[c] + (r+1); //azért c+1, mert 0-ról indul a ciklus, de amezőt nem 0-nak nevezem
+				if(c%2 == 0){
+					cell.className="fekete";
+				}
+				
+				row.appendChild(cell);
+				}   
+			
+			}
+			
+			tbl.appendChild(row); // add the row to the end of the table body
+		}
+		div1.appendChild(tbl); // appends <table> into <div1>
+	}
+
+	window.onload=drawTable;
+
+
+$("#div1").on("click", "td", function() {
+	alert($( this ).attr('id'));
+} );
+
+
+
+
+var hiba = false;
+
+$(function() { //a tábla celláit droppable-lé alakítjuk
+	
+	$("#babu").draggable({
+		cursor: 'move',
+		revert: false
+	});
+	
+	$( "table td" ).droppable({
+		//drop: ragadosBabu
+			drop: function(event, ui){
+			var draggable = ui.draggable;
+			ui.draggable.draggable( 'option', 'revert', false );
+			ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+			var id = $( this ).attr('id');
+			id = id.toString();
+			pozicio.push(id); //hozzáadjuk a tömbhöz, de nem mint stringet, hanem mint külön elemet
+					
+			
+			if(pozicio.length>1){//- a második lépést vizsgálja
+				ui.draggable.draggable( 'option', 'revert', false );
+				var prev = (pozicio.length-2);//alert(pozicio[prev]);
+				//alert(id); - az éppen aktuális elem az id, és mivel string, nem is kell stringgé alakítani
+				var string =  pozicio[prev].toString();
+				
+				var prevcol = string[0]; //előző lépés oszlop jele
+				var nextcol = id[0]; //az aktuális lépés oszlop jele
+				var prevrow = string[1]; //az előző lépés sor száma
+				var nextrow = id[1]; //az aktuális lépés sor száma
+				
+				var prevColIndex = oszlopok.indexOf(prevcol); //előző oszlop indexe az oszlopok tömbben
+				var nextColIndex = oszlopok.indexOf(nextcol); //aktuális oszlop indexe az oszlopok tömbben
+				//alert(prevColIndex); //alert(nextColIndex);
+				
+				
+				//POZITÍV VIZSGÁLAT
+				if(nextColIndex == prevColIndex+1 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-1 && nextrow == prevrow
+				
+				|| nextColIndex == prevColIndex && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex && nextrow == prevrow+1
+				|| prevColIndex == nextColIndex && prevrow == nextrow-1
+				|| prevColIndex == nextColIndex && prevrow == nextrow+1
+				
+				|| nextColIndex == prevColIndex+1 && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex+1 && nextrow == prevrow+1
+				|| prevColIndex == nextColIndex+1 && prevrow == nextrow-1
+				|| prevColIndex == nextColIndex+1 && prevrow == nextrow+1
+				
+				|| nextColIndex == prevColIndex-1 && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex-1 && nextrow == prevrow+1
+				|| prevColIndex == nextColIndex-1 && prevrow == nextrow-1
+				|| prevColIndex == nextColIndex-1 && prevrow == nextrow+1
+				
+				
+				)
+				{
+					hiba = false;
+					$(this).effect("highlight", {color: 'green'}, 500);
+					
+					var length = (pozicio.length-1);
+					pozicio.splice(0, length);
+					
+				} else { 
+					$(this).effect("highlight", {color: 'red'}, 500);
+					
+					if(!hiba){					
+						var length = (pozicio.length-2);//alert(length);
+						/*pozicio.splice(0, 1);
+						pozicio.splice(1, length);	*/
+						pozicio.splice(0, length);
+						pozicio.pop();
+						
+						var last = pozicio.toString();
+						pozicio = []; //alert(last);
+						pozicio.push(last);
+						
+						
+						$("#babu").position({ 
+						of: $('#'+last),
+						my: 'left top',
+						at: 'left top',
+					
+						});
+					
+						hiba = true; 
+					
+					} else {
+						var length = (pozicio.length-1);
+						pozicio.splice(1, 1);
+						var last = pozicio.toString();
+						pozicio = [];
+						pozicio.push(last);
+						
+						$("#babu").position({ 
+							of: $('#'+last),
+							my: 'left top',
+							at: 'left top',
+				
+						});
+						
+						hiba = true;
+						
+					}
+					
+										
+					
+				
+					
+				}
+				
+				
+			
+			}
+			
+		}
+		
+	});
+	
+		
+	
+} );
+
+/*function ragadosBabu(event, ui) {
+	var draggable = ui.draggable;
+	ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+}*/
+ 
+
+
+
+ 
+</script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+html{
+	overflow-y: /*scroll*/hidden;
+overflow-x: hidden;
+}
+
+html::before{
+background-image: url('brew.png');
+background-size: cover;
+content: "";
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -2;
+opacity: 0.7;
+}
+
+.createdby{
+	position:absolute;
+	bottom:25px;
+	right:50px;
+	color:#333;
+}
+
+.cim{
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	height: 200px;
+	margin-top:35px;
+	display: flex;
+	line-height:0%;
+	background:#333;
+	/*align-items: center;*/
+	/*margin-top:20%;*/
+	justify-content: center ;
+	color:orange;
+	font-family:Rockwell;
+	font-size:92px;
+	cursor:pointer;
+	text-shadow:1px 1px #111;
+}
+
+.cimend{
+	margin-left:auto;
+	margin-right:auto;
+	/*width:50%;*/
+	display:flex;
+	justify-content:center;
+	/*align-items: center;*/
+	/*margin-top:20%;*/
+	color:orange;
+	font-family:Rockwell;
+	font-size:62px;
+	cursor:pointer;
+	text-shadow:1px 1px #111;
+	width: 100%;
+	background: #333;
+	margin-top:35px;
+}
+
+
+.kezdes{
+	margin-left:auto;
+	margin-right:auto;
+	width:/*50%*//*17%*/280px;
+	height: 100%;
+	display: flex;
+	/*align-items: center;*/
+	margin-top:12%;
+	justify-content: center ;
+	color:white;
+	font-family:Rockwell;
+	font-size:92px;
+	cursor:pointer;
+	background:#222;
+}
+.kezdes p, p.kezdes{
+	margin: 0 
+}
+
+.valaszt{
+	margin-left:auto;
+	margin-right:auto;
+	width:/*50%*//*17%*/300px;
+	cursor:pointer;
+	color:white;
+	font-family:Rockwell;
+	font-size:92px;
+	text-align:center;
+}
+
+.animation {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.wrapper {
+  width: /*60%*/1000px;
+  height:100%;
+  padding: 5%;
+  margin: 40px auto;
+  display:block;
+}
+
+.wrapper.cards {
+  background: 0;
+  width: 88%;
+  padding: 20px 0 0 0;
+}
+
+.container {
+  position: relative;
+  float: left;
+  width: 125px;
+  height: 125px;
+  margin: 20px 0 10px 3.6%;
+  /*background: #fff;*/
+  
+  
+  /* Set the depth of the elements */
+  -webkit-perspective: 800px;
+  -moz-perspective: 800px;
+  -o-perspective: 800px;
+  perspective: 800px;
+}
+
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: pointer;
+  
+  
+  /* Set the transition effects */
+  -webkit-transition: -webkit-transform 0.4s;
+  -moz-transition: -moz-transform 0.4s;
+  -o-transition: -o-transform 0.4s;
+  transition: transform 0.4s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.card.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+
+
+.card .front,
+.card .back {
+  display: block;
+  height: 100%;
+  width: 100%;
+  line-height: 20px;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+  
+}
+
+.card .back {
+  width: 94%;
+  padding-left: 3%;
+  padding-right: 3%;
+  font-size: 12px;
+  text-align: left;
+  line-height: 20px;
+ 
+}
+
+.card .front {
+  background: /*#222222*//*#fff;*/ /*#700*/#111;
+  border: 1px solid #777;
+  box-shadow: 1px 1px #333333;
+}
+
+.card .back {
+  background: #444444;
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+  box-shadow: 1px 1px #333333;
+}
+
+
+
+.content {
+  /*padding: 4%;
+  font-weight: 100;
+  text-align: left;*/
+  
+ 
+  width:125px;
+  height:125px;
+  margin-left: -3px;
+}
+
+
+#div1, #div2{background:url('ser/staro.png'); background-size:cover;}
+#div3, #div4{background:url('ser/heineken.png'); background-size:cover;}
+#div5, #div6{background:url('ser/kruso.jpg'); background-size:cover;}
+/*---- TOVÁBBIAK -----*/
+#div7, #div8{background:url('ser/kostritzer.png'); background-size:cover;}
+#divX, #divY{background:url('ser/edelweiss.png'); background-size:cover;}
+#divA, #divB{background:url('ser/stella.png'); background-size:cover;}
+#divC, #divD{background:url('ser/paulaner.png'); background-size:cover;}
+#divE, #divF{background:url('ser/fosters.jpg'); background-size:cover;}
+
+#divG, #divH{background:url('ser/guiness.png'); background-size:cover;}
+#divI, #divJ{background:url('ser/gaymers.jpg'); background-size:cover;}
+#divK, #divL{background:url('ser/tuborg.jpg'); background-size:cover;}
+#divM, #divN{background:url('ser/kronenbourg.png'); background-size:cover;}
+
+
+.blink{
+	margin-top:0;
+	-webkit-animation: blink 1.5s linear 2;
+	-moz-animation: blink 1.5s linear 2;
+	-ms-animation: blink 1.5s linear 2;
+	-o-animation: blink 1.5s linear 2;
+	 /*animation: blink 1.5s linear infinite;*/
+	 animation: blink 1.5s linear 2;
+	 text-shadow: 1px 1px #333;
+}
+
+
+.blink p, p.blink{
+/*background: #111;*/
+width: /*40%*/800px;
+margin: auto;
+height: 50px;
+padding: 12px 0;
+}
+
+
+.antiblink p, p.antiblink{
+	width: 40%;
+margin: auto;
+height: 50px;
+padding: 12px 0;
+}
+
+@keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-webkit-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-moz-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-ms-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+@-o-keyframes blink {
+	0% { opacity: 1; }
+	50% { opacity: 1; }
+	50.01% { opacity: 0; }
+	100% { opacity: 0; }
+}
+
+.csik{
+position:absolute; 
+text-transform:uppercase; 
+top:30px;width:100%; height:46px; 
+ color:/*#fff*/orange; font-family:rockwell; font-size:42px; 
+ margin-top: 1px; text-align:center; line-height:120%;
+}
+
+#time{
+	/*display:none;*/
+}
+
+
+.stopper{
+position:relative;
+top:25px;
+margin:auto;
+width:120px;
+height:100px;
+clear: both;
+z-index:1;
+color:/*white*/orange;
+text-shadow: 1px 1px #222;
+font-size:48px;
+font-family:Rockwell;
+}
+
+.ending{
+	display:none;
+	position:absolute;
+	left:50%;
+	top:50%;
+	width:200px;
+	height:200px;
+	background:#aaa;
+	
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables</title>
+</head>
+<input id="textInput" type="text">
+<button id="textChange">Change text</button>
+<p id="newText">Ez egy szöveg</p>
+
+<body>
+    <script type="text/javascript">
+        document.getElementById("textChange").onclick = function() {
+            //alert("Hi");
+            var textEntered = ""; //empty string
+            textEntered = document.getElementById("textInput").value;
+            //alert(textEntered);
+            document.getElementById("newText").innerHTML = textEntered;
+        }
+    /*let x = 5;
+    x = 10;
+    alert(x);*/
+    </script>
+</body>
+</html>

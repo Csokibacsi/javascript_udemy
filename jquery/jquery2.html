@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style>
+       #circle{
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            background:green;
+            margin:5px;
+            float:left;
+        }
+
+        #square{
+            width:100px;
+            height:100px;
+            background:red;
+            margin:5px;
+            float:left;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <p>This is some text</p>
+
+    <div id="circle"></div>
+   
+    <div id="square"></div>
+
+    <script>
+      
+        $("#circle").click(function(){
+          //$("#circle").css("width", "400px");
+          $("#circle").css("background", "red");
+        });
+       
+       $('div').click(function(){
+            //$(this).css("display", "none"); //éppen az aktuális div-re kattintva aktiválódik, nem kell az id-t megadni, hanem saját magára hivatkozik
+            //alert("You clicked on a " +$(this).attr("id") );
+
+            if($(this).attr("id") == "circle"){
+                alert("You clicked on a circle");
+            } else {
+                alert("You clicked on a square");
+            }
+            
+       });
+
+
+
+    </script>
+</body>
+</html>

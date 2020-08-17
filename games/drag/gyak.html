@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+
+<style>
+	#huziga{
+		cursor:pointer;
+		width:300px;
+		height:300px;
+		background-color:#ff0000;
+	}
+	
+	#ragacs{
+		float: right; 
+		width: 300px; 
+		height: 300px; 
+		border: 1px 
+		solid #999; 
+	}
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+$(inditas);
+
+//var curs = $("#huziga").css("cursor","move");
+
+function inditas(){
+
+	$('#huziga').draggable({
+		//containment: '#content',
+		cursor: 'move',
+	});
+	
+	$('#ragacs').droppable({
+		drop: ragados
+	});
+}
+
+function ragados(event, ui) {
+	var draggable = ui.draggable;
+	 ui.draggable.draggable( 'disable' );
+	  $(this).droppable( 'disable' );
+	  ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+	  ui.draggable.draggable( 'option', 'revert', false );
+	//alert("talált!");
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="content" style="height: 400px;">
+	<div id="huziga"></div>
+	<div id="ragacs"></div>
+	
+</div>
+
+</body>
+</html>

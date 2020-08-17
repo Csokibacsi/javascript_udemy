@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas> <!-- canvas megrajzolás -->
+
+<script>
+
+//ENÉLKÜL LE SEM FUT AZ EGÉSZ:
+var canvas = document.getElementById("myCanvas"); //aktiváljuk a canvas-t a DOM-mal
+var ctx = canvas.getContext("2d");
+//----------------------------
+
+var ballRadius = 10; //labda kiterjedése - collision detection miatt kell
+var x = canvas.width/2;
+var y = canvas.height-30;
+
+//meghatározzuk, mennyivel mozogjon a labda:
+var dx = 2;
+var dy = -2;
+
+function drawBall(){
+	ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2); //fix érték helyett a ballRadius változót írjuk
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function draw(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+	
+	/*///if(y+dy<0){ //ha 0 az y koordináta, váltson irányt
+		dy = -dy;
+	}////*/
+
+	/*//////////////////////////////////
+	if(y + dy > canvas.height || y+dy<0) { //ha eléri az egyik irányban a falat, váltson irányt (canvas.height a teljes magasság)
+		dy = -dy;
+	}	
+	//ugyanez az x tengelyen:
+	if(x + dx > canvas.width || x + dx < 0) {
+    dx = -dx;
+	}
+	///////////////////////////////////////*/
+	
+	//hogy a labda széle ne tudjon kilógni a képből, figyelemb kell venni a labda kiterjedését is:
+	if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) { //ha a labda nekimegy a jobb VAGY ball falnak - irányt vált , illetve a jelenlegi koordináta, és a megemelt már nagyobb lenne, mint a labda terjedelme, akkor pattanjon vissza
+    dx = -dx;
+	}
+
+	if(y + dy > canvas.height-ballRadius || y + dy < ballRadius) { //ugyanez a plafon és padlóval
+    dy = -dy;
+	}
+	
+    x += dx;
+    y += dy;
+}
+
+setInterval(draw, 10); //10 millisecundumonként frissíti a képet
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

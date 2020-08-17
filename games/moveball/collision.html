@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas> <!-- canvas megrajzolás -->
+
+<script>
+
+//ENÉLKÜL LE SEM FUT AZ EGÉSZ:
+var canvas = document.getElementById("myCanvas"); //aktiváljuk a canvas-t a DOM-mal
+var ctx = canvas.getContext("2d");
+//----
+
+//paddle tulajdonságai:
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth) / 2; //a széle meddig nyúljon ki, ha eléri a péya szélét ne mehessen tovább
+
+var ballRadius = 10; //labda kiterjedése - collision detection miatt kell
+var x = canvas.width/2;
+var y = canvas.height-30;
+
+var dx = 2; //meghatározzuk, mennyivel mozogjon a labda az x és y tengelyen
+var dy = -2;
+
+//button press - default értéke false
+var rightPressed = false;
+var leftPressed = false;
+
+//téglák:
+var brickRowCount = 3;
+var brickColumnCount = 5;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+
+//2 dimenziós tömbbe tesszük a téglákat:
+var bricks = []; // első tömb
+for(var c=0; c<brickColumnCount; c++) { //oszlopok száma elem 
+    bricks[c] = []; //tömbben a tömb létrehoz
+    for(var r=0; r<brickRowCount; r++) { //sorok száma elem
+        bricks[c][r] = { x: 0, y: 0, status : 1 }; //x és y koordináta + adunk egy status paramétert
+		//a status : 1 a létező téglát jelenti amíg nem ütjük ki, a 0 a kiütött tégla
+	}
+}
+
+
+document.addEventListener("keydown", keyDownHandler, false); //gombnyomás esetén aktiválódik a keyDownHandler function
+document.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(e){
+	if(e.key == "Right" || e.key == "ArrowRight"){ //jobb gomb nyomására true lesz a rightPressed változó értéke
+		rightPressed = true;
+	} else if(e.key == "Left" || e.key =="ArrowLeft"){
+		leftPressed = true;
+	}	
+}
+
+//Viszont meg kell azt is határozni, mi történjen, ha elengedtük a gombot:
+function keyUpHandler(e) {
+    if(e.key == "Right" || e.key == "ArrowRight") {
+        rightPressed = false;
+    }
+    else if(e.key == "Left" || e.key == "ArrowLeft") {
+        leftPressed = false;
+    }
+}
+
+function collisionDetection() { //ütközés érzékelés
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+            var b = bricks[c][r];
+			
+			if(b.status == 1) { //ha statusa 1, vagyis meg van rajzolva, nem üres
+				/*
+				If the center of the ball is inside the coordinates of one of our bricks, we'll change the direction of the ball. For the center of the ball to be inside the brick, all four of the following statements need to be true:
+					The x position of the ball is greater than the x position of the brick.
+					The x position of the ball is less than the x position of the brick plus its width.
+					The y position of the ball is greater than the y position of the brick.
+					The y position of the ball is less than the y position of the brick plus its height
+				*/
+				
+				if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+					dy = -dy;
+					b.status = 0; //ütközés esetén a statusa 0-ra vált, eltűnik a tégla
+					
+				} 
+			}
+			
+        }
+    }
+}
+
+function drawRed(){
+	ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2); //fix érték helyett a ballRadius változót írjuk
+	ctx.fillStyle = "#ff0000";
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+function drawBall(){
+	ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2); //fix érték helyett a ballRadius változót írjuk
+	ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawPaddle() { //megrajzoljuk a paddle-t
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight); //1-2 paraméter a koordináta, 3-4 a szélesség
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawBricks() { //téglák rajzolása oszloponként és soronként
+    for(var c=0; c<brickColumnCount; c++) {
+        for(var r=0; r<brickRowCount; r++) {
+			
+			if(bricks[c][r].status == 1) { //ha az aktuális tégla statusa 1, vagyis nem 0, akkor rajzoljuk ki
+			//ahhoz, hogy ne egyetlen pozícióba rakja egymásra a téglákat, el kell tolnunk őket minden egyes ciklus lefutásnál:
+			var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+            var brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+			
+            bricks[c][r].x = brickX;
+            bricks[c][r].y = brickY;
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+			}
+        }
+    }
+}
+
+function draw(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	drawBricks(); //tégla megrajzolás lefuttatása
+	drawBall();
+	drawPaddle();
+	collisionDetection();
+	
+	if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) { //ha a labda nekimegy a jobb VAGY ball falnak - irányt vált , illetve a jelenlegi koordináta, és a megemelt már nagyobb lenne, mint a labda terjedelme, akkor pattanjon vissza
+    dx = -dx;
+	}
+	
+	if(y + dy < ballRadius){ //ha falat ér felül, megfordul a labda iránya
+		dy = -dy;
+	} else if(y + dy > canvas.height-ballRadius){ //ha viszont az alsó végét éri el a labda a játéktérnek, ott game over
+		
+		if(x > paddleX && x < paddleX + paddleWidth){ //ha a labda a paddle két széle között éri el a pálya alját, visszapattan
+			dy = -dy; //az 1.2 szeres szorzóval gyorsul a labda, így izgalmasabb :-)
+		} else {
+			alert("Game Over"); 
+			document.location.reload(); //refresh
+			clearInterval(interval); //Chrome böngészőben ez kell, hogy véget érjen a játék
+		}
+	}
+	
+    x += dx;
+    y += dy;
+		
+	if(rightPressed && paddleX < canvas.width - paddleWidth) {
+		paddleX += 7;
+	}
+	else if(leftPressed && paddleX > 0) {
+		paddleX -= 7;
+	}
+}
+
+var interval = setInterval(draw, 10);
+
+
+
+
+</script>
+
+
+</body>
+</html>

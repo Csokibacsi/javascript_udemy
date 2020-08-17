@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game2</title>
+</head>
+<body>
+
+    <p>How many fingers, am I holding?</p>
+    <p><input type="text" id="guess"><button id="checkGuess">Guess</button> </p>
+
+    <script>
+        let numOfGuesses = 2;
+        let randomNum = Math.floor((Math.random()*6));
+
+        document.querySelector("#checkGuess").onclick = function (){
+            numOfGuesses --;
+
+            if(document.querySelector("#guess").value==randomNum){
+                alert("Well done!");
+            } else {
+                if(numOfGuesses>0){
+                    if(document.querySelector("#guess").value>randomNum){
+                        alert("Your number is too big!");
+                    } else {
+                        alert("Your number is too small!");
+                    }
+                } else {
+                    alert("Nope! The number was: "+randomNum);
+                }
+               
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<title>Flip back + random</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+
+<style>
+.card {
+    width: 50px;
+    height: 50px;
+    padding:25px;
+    background-color: black;
+    color: white;
+    font-family:'Arial', sans-serif;
+	cursor:pointer;
+}
+
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+</script>
+
+</head>
+
+<body>
+<div id="div1"></div>
+<!--
+<p class="card" id="1">sample text</p>
+<p class="card" id="2">sample text</p>
+<p class="card" id="3">sample text</p>
+<p class="card" id="4">sample text</p>
+	-->
+	
+	
+<script>
+
+var numOfFlip = [1, 2, 3, 4];
+numOfFlip.sort( function() { return Math.random() - .5 } );
+
+//alert(numOfFlip);
+
+for (i = 0; i < 4; i++) {
+    var line = document.createElement("p");
+    line.className = 'card';
+	line.id = numOfFlip[i];
+    line.innerHTML = "sample text";
+    document.body.appendChild(line);
+}
+
+	
+var clicked = []; //aktív állapotban van
+
+/*var finished = []; //megvan a pár
+var pairs = 1 + Math.floor(Math.random() * 4);*/
+
+
+function flipBack(){ //rossz választás esetén visszaforgatja az elemeket
+	$('.card').css("transform", "rotateY(360deg)" );
+	clicked=[];
+}
+
+
+
+$('.card').click(function(){
+	
+	if(!clicked.includes($( this ).attr('id')) ) {
+		
+		clicked+= $( this ).attr('id'); //minden klikk során a clicked tömbbe rakjuk az elem #id-jét
+		
+		if(clicked.length%2==0){ //páros klikk esetén
+				$(this).css("transform", "rotateY(180deg)" ); //180 fokos forgás
+				$(this).css("transitionDuration", "1s");
+				
+			if(clicked.includes(1) && clicked.includes(2)
+				|| clicked.includes(3) && clicked.includes(4) ){ //ha a megfelelő elemek vannak párosítva
+					
+					//alert(clicked.length);
+					if(clicked.length==4){ //az összes párosítva van, vagyis a klikkel tömbben mind a 4 #id ott van
+						alert("kész");
+					}
+				
+			} else {
+				setTimeout(flipBack, 1000); //az érintett elemek kiinduló pozícióba mennek a functionben
+				clicked=[];	
+				
+			}
+		}
+		else { //páratlan klikk esetén
+		
+			$(this).css("transform", "rotateY(180deg)" ); //180 fokos forgás
+			$(this).css("transitionDuration", "1s");
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+
+});
+
+
+
+</script>
+
+</body>
+</html>

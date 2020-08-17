@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<HTML>
+	<HEAD>
+		<TITLE>The Canvas Tag</TITLE>
+	</HEAD>
+
+	<BODY>
+
+	<HEADER>
+		<P>Press TAB to begin, W, A, S, D keys to move</P>
+	</HEADER>
+
+	<SECTION style="border-style: solid; border-width: 2px; width: 500px;">
+		<CANVAS WIDTH="500" HEIGHT="400" ID="canvas_1" tabindex="0">
+			Canvas tag not supported
+		</CANVAS>
+	</SECTION>
+
+	<SCRIPT>
+		var canvas = document.getElementById("canvas_1");
+		//canvas.addEventListener('keydown', doKeyDown, true); //csak a canvs területén veszi be az inputot
+		window.addEventListener('keydown', doKeyDown, true); //az egész ablakban beveszi az inputot
+		canvas_context = canvas.getContext("2d");
+		canvas_context.fillRect(100, 100, 50, 30);
+
+		var x = 100;
+		var y = 100;
+
+		function doKeyDown(e){
+
+			//====================
+			//	THE UP KEY
+			//====================
+			if (e.keyCode == 38) {
+				clearCanvas();
+				y = y - 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE DOWN KEY
+			//====================
+			if (e.keyCode == 40) {
+				clearCanvas();
+				y = y + 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE LEFT KEY
+			//====================
+			if (e.keyCode == 37) {
+				clearCanvas();
+				x = x - 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+			//====================
+			//	THE RIGHT KEY
+			//====================
+			if (e.keyCode == 39){
+				clearCanvas();
+				x = x + 10;
+				canvas_context.fillRect(x, y, 50, 30);
+			}
+
+		}
+
+		function clearCanvas() {
+			canvas.width = canvas.width;
+		}
+
+
+	</SCRIPT>
+
+	</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<title>Generate Content</title>
+<style>
+.content{
+	width:50px;
+	height:50px;;
+	background:red;
+}	
+	
+.content#div1, #div1.content, #div1 .content, .content #div1{
+	background:green!important;
+}	
+
+/*#div1{
+background:green!important;
+}*/
+	
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+</script>
+
+</head>
+<body>
+<div class="wrapper"> </div>
+<!--	  <div class="container">
+		<div class="card" id="1">
+		  <div class="front"><h2>Hihi</h2></div>
+		  <div class="back">
+			<div class="content">
+			  <h3 class="cardTitle">Quem eu sou?</h3>
+			  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+</div>-->
+
+<script>
+		
+	function appendContent(){
+	for (i = 0; i < 6; i++) {	
+		var section = '<div class="container"><div class="card" id="'+i+'"><div class="front"><h2>Hihi</h2></div>   <div class="back"><div class="content" id="div'+i+'"></div></div> </div></div>';
+		$(".wrapper").append(section);
+	}
+}
+appendContent();
+
+    
+</script>
+</body>
+</html>

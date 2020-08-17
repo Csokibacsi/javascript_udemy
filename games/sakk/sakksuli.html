@@ -1,0 +1,455 @@
+<!doctype html>
+<html>
+<head>
+<title>Sakksuli</title>
+<style>
+	
+	body{
+		width:100%;
+		height:100%;
+		margin:auto;
+	}
+	
+	#div1{
+		margin:30px auto;
+		font-size:1.25em;
+		width:900px;
+	}
+	
+	#babu{
+		width:100px;
+		height:99px;
+		background-size: cover;
+		position:absolute;
+		left:10px;
+		top:10px;
+	}
+	#babu:hover{
+		cursor:pointer;
+	}
+	
+	table{
+		border-collapse:collapse;
+		border:1px solid #444;
+	}
+	
+	td {
+		border:1px solid #444;
+		width:100px;
+		height:100px;
+		text-align:center;
+	}
+	
+	.fekete{
+		background-color:#999;
+	}
+	#tovabb{
+		z-index: 10;
+		width:200px;
+		height:100px;
+		border: 1px solid #999;
+		position: absolute;
+		top: 50%;
+		left: 6%;
+		display:none;
+	}
+	
+	#tovabb p, p#tovabb {
+		margin: auto;
+		font-weight:bold;
+		margin-left:20%;
+		margin-top: 3%;
+	}
+	
+	button{
+		background-color:#0099ff;
+		color: #fff;
+		margin: 12% 25%;
+		width: 90px;
+		height: 40px;
+	}
+	
+	#betuk{
+		width:870px;
+		height:1px;
+		margin:auto;
+	}
+	
+	#betuk ul li{
+		list-style-type:none;
+		display:inline;
+		width:101px;
+		height:1px;
+		float:left;
+		
+	}
+	
+	#szamok{
+		height:900px;
+		width:10px;
+		position:absolute;
+		left:425px;
+		top:70px;
+	}
+	
+	#szamok ul li{
+		list-style-type:none;
+		width:10px;
+		height:103px;
+	
+		
+	}
+	
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript" src="tabla.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+
+</head>
+<body>
+<div id="betuk">
+	<ul>
+		<li>A</li>
+		<li>B</li>
+		<li>C</li>
+		<li>D</li>
+		<li>E</li>
+		<li>F</li>
+		<li>G</li>
+		<li>H</li>
+	</ul>
+</div>
+
+<div id="szamok">
+	<ul>
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+		<li>6</li>
+		<li>7</li>
+		<li>8</li>
+	</ul>
+</div>
+
+<div id="babu"></div>
+<div id="div1"></div>
+<div id="tovabb">
+	<p>Következő bábu</p>
+	<button id="next">Következő</button>
+</div>
+
+
+<script>
+
+var lepesekSzama = 0;
+var jatszma = 0;
+
+$("button").click(function() {
+	jatszma++;
+	lepesekSzama = 0;
+	pozicio = [];
+	//alert(jatszma);
+	$("#tovabb").css("display", "none");
+	
+	$("#babu").position({ 
+		of: $('body'),
+		my: 'left top',
+		at: 'left top',
+	});
+	
+if(jatszma ==1){imageUrl = 'bastya.png'; $('#babu').css('background-image','url('+imageUrl+')' );  alert("BÁSTYA");}
+if(jatszma ==2){imageUrl = 'lovag.png'; $('#babu').css('background-image','url('+imageUrl+')' ); alert("LOVAG");}
+if(jatszma ==3){imageUrl = 'futo.png'; $('#babu').css('background-image','url('+imageUrl+')' ); alert("FUTÓ");}
+if(jatszma ==4){imageUrl = 'kiralyno.png'; $('#babu').css('background-image','url('+imageUrl+')' ); alert("KIRÁLYNŐ");}
+if(jatszma ==5){
+	alert("Gratulálunk, megtanultad a sakklépések alapjait!");
+	location.reload();
+}	
+	
+});
+
+if(jatszma ==0){imageUrl = 'kiraly.png'; $('#babu').css('background-image','url('+imageUrl+')' ); alert("Helyezd a bábut a táblára és lépegess vele!\n Az első bábu a KIRÁLY" )}
+
+
+$("#div1").on("click", "td", function() {
+	alert($( this ).attr('id'));
+} );
+
+
+//-----------------
+
+function joLepes(hiba, pozicio, thisObj){
+	hiba = false;
+	thisObj.effect("highlight", {color: 'green'}, 500);
+	var length = (pozicio.length-1);
+	pozicio.splice(0, length);
+	lepesekSzama++;
+}
+
+function rosszLepes(hiba, pozicio, thisObj){
+
+	thisObj.effect("highlight", {color: 'red'}, 500);
+					
+		if(!hiba){					
+			var length = (pozicio.length-2);//alert(length);
+			pozicio.splice(0, length);
+			pozicio.pop();
+						
+			var last = pozicio.toString();
+			pozicio = []; //alert(last);
+			pozicio.push(last);
+						
+						
+			$("#babu").position({ 
+			of: $('#'+last),
+			my: 'left top',
+			at: 'left top',	
+			});
+					
+			hiba = true; 
+					
+		} else {
+			var length = (pozicio.length-1);
+			pozicio.splice(1, 1);
+			var last = pozicio.toString();
+			pozicio = [];
+			pozicio.push(last);
+						
+			$("#babu").position({ 
+				of: $('#'+last),
+				my: 'left top',
+				at: 'left top',
+			});
+						
+			hiba = true;			
+		}
+}
+
+/*function rosszLepesLoop(hiba, pozicio, thisObj){
+
+}*/
+
+//-----------------
+
+
+function kiraly(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, thisObj){
+	
+	if(nextColIndex == prevColIndex+1 && nextrow == prevrow || nextColIndex == prevColIndex-1 && nextrow == prevrow
+	|| nextColIndex == prevColIndex && nextrow == prevrow-1 || nextColIndex == prevColIndex && nextrow == prevrow+1 || prevColIndex == nextColIndex && prevrow == nextrow-1 || prevColIndex == nextColIndex && prevrow == nextrow+1			
+	|| nextColIndex == prevColIndex+1 && nextrow == prevrow-1 || nextColIndex == prevColIndex+1 && nextrow == prevrow+1 || prevColIndex == nextColIndex+1 && prevrow == nextrow-1 || prevColIndex == nextColIndex+1 && prevrow == nextrow+1
+	|| nextColIndex == prevColIndex-1 && nextrow == prevrow-1 || nextColIndex == prevColIndex-1 && nextrow == prevrow+1 || prevColIndex == nextColIndex-1 && prevrow == nextrow-1 || prevColIndex == nextColIndex-1 && prevrow == nextrow+1
+	) {
+		//return true;
+		joLepes(hiba, pozicio, thisObj);
+	} else {
+		rosszLepes(hiba, pozicio, thisObj)
+	}
+}
+
+function bastya(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, thisObj){
+	if(nextColIndex == prevColIndex+1 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+2 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+3 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+4 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+5 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+6 && nextrow == prevrow
+				|| nextColIndex == prevColIndex+7 && nextrow == prevrow
+				
+				|| nextColIndex == prevColIndex-1 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-2 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-3 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-4 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-5 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-6 && nextrow == prevrow
+				|| nextColIndex == prevColIndex-7 && nextrow == prevrow
+				
+				
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-1)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-2)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-3)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-4)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-5)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-6)
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-7)
+				
+				|| nextColIndex == prevColIndex && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex && nextrow == prevrow-2
+				|| nextColIndex == prevColIndex && nextrow == prevrow-3
+				|| nextColIndex == prevColIndex && nextrow == prevrow-4
+				|| nextColIndex == prevColIndex && nextrow == prevrow-5
+				|| nextColIndex == prevColIndex && nextrow == prevrow-6
+				|| nextColIndex == prevColIndex && nextrow == prevrow-7
+		)
+	{
+		joLepes(hiba, pozicio, thisObj);
+	} else {
+		rosszLepes(hiba, pozicio, thisObj)
+	}
+}
+
+
+
+function lovag(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, thisObj) {
+	if(nextColIndex == prevColIndex+2 && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex+1 && nextrow == prevrow-2
+				|| nextColIndex == prevColIndex+2 && nextrow == prevrow+1 //???
+				|| nextColIndex == prevColIndex-2 && nextrow == prevrow-1
+				|| nextColIndex == prevColIndex-1 && nextrow == prevrow-2
+				|| nextColIndex == prevColIndex-2 && nextrow == prevrow+1 //???
+				
+				|| prevColIndex == (nextColIndex-2) && prevrow == (nextrow-1)
+				|| prevColIndex == (nextColIndex-1) && prevrow == (nextrow-2)
+				|| prevColIndex == (nextColIndex-1) && prevrow == (nextrow+2)
+				|| prevColIndex == (nextColIndex+1) && prevrow == (nextrow-2)
+				|| prevColIndex == (nextColIndex+1) && prevrow == (nextrow+2)
+				|| prevColIndex == (nextColIndex+2) && prevrow == (nextrow+1)
+				|| prevColIndex == (nextColIndex+2) && prevrow == (nextrow-1)
+				)
+	{
+		joLepes(hiba, pozicio, thisObj);
+	} else {
+		rosszLepes(hiba, pozicio, thisObj)
+	}
+}
+
+function futo(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, thisObj){
+	
+	for(var i=1; i<8; i++){
+			if(nextColIndex == prevColIndex+i && nextrow == prevrow-i
+				|| prevColIndex == nextColIndex+i && prevrow == nextrow-i
+				|| prevColIndex == nextColIndex+i && prevrow == nextrow+i
+				|| nextColIndex == prevColIndex+i && nextrow == prevrow+i
+				
+				|| nextColIndex == prevColIndex-i && nextrow == prevrow-i
+				|| nextColIndex == prevColIndex-i && nextrow == prevrow+i
+				|| prevColIndex == nextColIndex-i && prevrow == nextrow-i
+				|| prevColIndex == nextColIndex-i && prevrow == nextrow+i
+				)
+					{
+						var jo = true;
+					} 
+	} 
+	
+				if(jo==true){
+					joLepes(hiba, pozicio, thisObj);
+				} else {
+					rosszLepes(hiba, pozicio, thisObj);	
+				}
+	
+}
+
+function kiralyno(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, thisObj){
+	for(var i=1; i<8; i++){
+	if(nextColIndex == prevColIndex+i && nextrow == prevrow-i
+				|| prevColIndex == nextColIndex+i && prevrow == nextrow-i
+				|| prevColIndex == nextColIndex+i && prevrow == nextrow+i
+				|| nextColIndex == prevColIndex+i && nextrow == prevrow+i
+				
+				|| nextColIndex == prevColIndex-i && nextrow == prevrow-i
+				|| nextColIndex == prevColIndex-i && nextrow == prevrow+i
+				|| prevColIndex == nextColIndex-i && prevrow == nextrow-i
+				|| prevColIndex == nextColIndex-i && prevrow == nextrow+i
+				
+				//vizszintes
+				|| nextColIndex == prevColIndex+i && nextrow == prevrow
+				|| nextColIndex == prevColIndex-i && nextrow == prevrow
+				|| prevColIndex == nextColIndex && prevrow == (nextrow-i)
+				|| nextColIndex == prevColIndex && nextrow == prevrow-i
+				
+				
+				)
+					{
+						var jo = true;
+					} 
+	} 
+	
+				if(jo==true){
+					joLepes(hiba, pozicio, thisObj);
+				} else {
+					rosszLepes(hiba, pozicio, thisObj);	
+				}
+}
+
+
+
+
+
+
+
+var hiba = false;
+
+$(function() { //a tábla celláit droppable-lé alakítjuk
+	
+	$("#babu").draggable({
+		cursor: 'move',
+		revert: false
+	});
+	
+	$( "table td" ).droppable({
+		//drop: ragadosBabu
+			drop: function(event, ui){
+			var draggable = ui.draggable;
+			ui.draggable.draggable( 'option', 'revert', false );
+			ui.draggable.position( { of: $(this), my: 'left top', at: 'left top' } );
+			var id = $( this ).attr('id');
+			id = id.toString();
+			pozicio.push(id); //hozzáadjuk a tömbhöz, de nem mint stringet, hanem mint külön elemet
+					
+			
+			if(pozicio.length>1){//- a második lépést vizsgálja
+				ui.draggable.draggable( 'option', 'revert', false );
+				var prev = (pozicio.length-2);//alert(pozicio[prev]);
+				//alert(id); - az éppen aktuális elem az id, és mivel string, nem is kell stringgé alakítani
+				var string =  pozicio[prev].toString();
+				
+				var prevcol = string[0]; //előző lépés oszlop jele
+				var nextcol = id[0]; //az aktuális lépés oszlop jele
+				var prevrow = string[1]; //az előző lépés sor száma
+				var nextrow = id[1]; //az aktuális lépés sor száma
+				
+				var prevColIndex = oszlopok.indexOf(prevcol); //előző oszlop indexe az oszlopok tömbben
+				var nextColIndex = oszlopok.indexOf(nextcol); //aktuális oszlop indexe az oszlopok tömbben
+				//alert(prevColIndex); //alert(nextColIndex);
+				
+				
+				if(jatszma ==0){kiraly(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, $(this));}
+				if(jatszma ==1){bastya(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, $(this));}
+				if(jatszma ==2){lovag(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, $(this));}
+				if(jatszma ==3){futo(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, $(this));}
+				if(jatszma ==4){kiralyno(nextColIndex, prevColIndex, nextrow, prevrow, hiba, pozicio, $(this));}
+				
+				
+				
+				if(lepesekSzama>=3){
+					$("#tovabb").css("display", "block");
+				}
+				
+				
+			
+			}
+			
+		}
+		
+	});
+	
+		
+	
+} );
+
+
+
+
+
+ 
+</script>
+</body>
+</html>

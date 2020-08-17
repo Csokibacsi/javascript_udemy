@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+
+<style>
+	table{
+		border-collapse:collapse;
+		border:1px solid brown;
+	}
+	
+	td {
+		border:1px solid brown;
+		width:100px;
+		height:100px;
+		text-align:center;
+	}
+</style>
+
+<script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="../jquery-ui/jquery-ui.js"></script>
+
+<script type="text/javascript">
+	
+</script>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<td id="A1"></td>
+			<td id="A2"></td>
+		</tr>
+		<tr>
+			<td id="B1"></td>
+			<td id="B2"></td>
+		</tr>
+	</table>
+	
+<script type="text/javascript">
+	$("td").click(function() {
+	alert($(this).attr("id"));
+} );
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disappearing Circles</title>
+    
+    <style>
+        button.circle{
+            float:left;
+            margin:10px;
+            width:100px;
+            height:100px; 
+            border-radius:50px;
+        }
+
+        #circle1{background-color:red;}
+        #circle2{background-color:blue;}
+        #circle3{background-color:green;}
+
+    </style>
+</head>
+<body>
+
+    <button class="circle" id="circle1"></button>
+    <button class="circle" id="circle2"></button>
+    <button class="circle" id="circle3"></button>
+    
+    <script type="text/javascript">
+        
+        document.querySelector("#circle1").onclick = function(){
+           this.style.display = "none";   
+        }
+        document.querySelector("#circle2").onclick = function(){
+            this.style.visibility = "hidden";   
+        }
+
+
+    </script>
+
+</body>
+</html>
