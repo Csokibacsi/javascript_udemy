@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <script>
+       // var regex = /Great/i; //i=case insensitive
+       var regex = /e/g; //nem csak 1x találja meg az e-t, hanem globálisan, ahányszor előfordul a stringben - tömböt csinál belőle
+        var string = "Regex is great!";
+        var result = string.match(regex); //benne van-e
+        alert(result);
+
+    </script>
+</body>
+</html>
